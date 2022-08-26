@@ -49,19 +49,21 @@ streamkey=obs
 
 you should be able to stream to the server now.
 
-> for some reason, this doesnt work from windows obs to wsl2 hosted media server, running the server on windows for now
+> for some reason, this doesnt work from windows obs to wsl2 hosted media server, when configuring obs to send the stream to localhost. get your wsl ip by running `wsl hostname -I` in powershell, and use the first IP.
 
 ## rtmp to hls
 
 hls is a pretty nice format for showing streaming content in the browser. so we need to remux the stream.
 download the ffmpeg binaries from https://ffmpeg.org/download.html and configure them in the node-media-server config
 
+in ubuntu you can easily install it via `sudo apt install ffmpeg`
+
 ```js
 // add to config
 const config = {
   // ...
   trans: {
-    ffmpeg: "C:/Users/myusername/code/media-server/ffmpeg/bin/ffmpeg.exe",
+    ffmpeg: "/bin/ffmpeg",
     tasks: [
       {
         app: "live",
