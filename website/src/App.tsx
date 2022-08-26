@@ -7,6 +7,7 @@ const streamUrl = "http://localhost:8000/live/obs/index.m3u8";
 
 function App() {
   const videoEl = React.useRef<HTMLVideoElement>(null);
+  const [volume, setVolume] = React.useState(0);
 
   React.useEffect(() => {
     if (!videoEl.current) return;
@@ -25,15 +26,49 @@ function App() {
     }
   }, []);
 
+  React.useEffect(() => {
+    if (!videoEl.current) return;
+    videoEl.current.volume = volume;
+  }, [volume]);
+
   return (
     <div className="App">
-      <video
-        ref={videoEl}
-        style={{ height: 480 }}
-        controls
-        muted
-        autoPlay={true}
-      />
+      <div className="bg-gray-800">
+        <div>
+          <video ref={videoEl} style={{ height: 480 }} muted autoPlay={true} />
+        </div>
+        <div className="flex gap-2 p-2">
+          {volume === 0 ? (
+            <button
+              onClick={() => {
+                if (!videoEl.current) return;
+                videoEl.current.muted = false;
+                setVolume(1);
+              }}
+            >
+              🔈
+            </button>
+          ) : (
+            <button
+              onClick={() => {
+                if (!videoEl.current) return;
+                videoEl.current.muted = true;
+                setVolume(0);
+              }}
+            >
+              🔊
+            </button>
+          )}
+          <button
+            onClick={() => {
+              if (!videoEl.current) return;
+              videoEl.current.requestFullscreen();
+            }}
+          >
+            fullscreen
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

@@ -14,8 +14,7 @@ const config = {
     mediaroot: "./media",
   },
   trans: {
-    ffmpeg:
-      "C:/Users/aspieslechner/code/stream-test/media-server/ffmpeg/bin/ffmpeg.exe",
+    ffmpeg: "/bin/ffmpeg",
     tasks: [
       {
         app: "live",
